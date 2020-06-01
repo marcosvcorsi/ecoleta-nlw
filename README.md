@@ -1,2 +1,3 @@
-# ecoleta-nlw
-Ecoleta is a project created during Next Level Week, using Node.js, ReactJS and React Native with expo.
+<h1 align="center">
+  Ecoleta - Next Level Week
+</h1>
