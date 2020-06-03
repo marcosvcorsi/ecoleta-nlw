@@ -31,7 +31,6 @@ class Point {
   longitude: number;
 
   @OneToMany(() => PointItem, (pointItem) => pointItem.point, {
-    eager: true,
     cascade: ['insert'],
   })
   pointItems: PointItem[];
