@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import PointItem from './PointItem';
 
 @Entity('points')
 class Point {
@@ -28,6 +29,12 @@ class Point {
 
   @Column()
   longitude: number;
+
+  @OneToMany(() => PointItem, (pointItem) => pointItem.point, {
+    eager: true,
+    cascade: ['insert'],
+  })
+  pointItems: PointItem[];
 }
 
 export default Point;

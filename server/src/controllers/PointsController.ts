@@ -19,6 +19,12 @@ export default class PointsController {
 
     const pointsRepository = getRepository(Point);
 
+    const pointItems = items.map((item: number) => {
+      return {
+        item_id: item,
+      };
+    });
+
     const point = pointsRepository.create({
       name,
       email,
@@ -28,6 +34,7 @@ export default class PointsController {
       city,
       uf,
       image,
+      pointItems,
     });
 
     await pointsRepository.save(point);
