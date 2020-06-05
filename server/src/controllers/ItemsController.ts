@@ -12,7 +12,7 @@ export default class ItemsController {
     const serializedItems = items.map((item) => {
       return {
         ...item,
-        image_url: `http://localhost:3333/uploads/${item.image}`,
+        image_url: `http://192.168.0.100:3333/uploads/${item.image}`,
       };
     });
 
