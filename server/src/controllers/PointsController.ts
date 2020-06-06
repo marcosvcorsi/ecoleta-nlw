@@ -1,27 +1,27 @@
-import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
+import { Request, Response } from "express";
+import { getRepository } from "typeorm";
 
-import Point from '../entities/Point';
+import Point from "../entities/Point";
 
 export default class PointsController {
   public async index(request: Request, response: Response) {
     const { city, uf, items } = request.query;
 
     const parsedItems = String(items)
-      .split(',')
-      .map(item => Number(item.trim()));
+      .split(",")
+      .map((item) => Number(item.trim()));
 
     const pointsRepository = getRepository(Point);
 
     const points = await pointsRepository
-      .createQueryBuilder('points')
-      .leftJoin('points.pointItems', 'pointItems')
-      .where('points.uf = :uf', { uf })
-      .andWhere('points.city = :city', { city })
-      .andWhere('pointItems.item_id IN (:...items)', { items: parsedItems })
+      .createQueryBuilder("points")
+      .leftJoin("points.pointItems", "pointItems")
+      .where("points.uf = :uf", { uf })
+      .andWhere("points.city = :city", { city })
+      .andWhere("pointItems.item_id IN (:...items)", { items: parsedItems })
       .getMany();
 
-    const serializedPoints = points.map(point => {
+    const serializedPoints = points.map((point) => {
       return {
         ...point,
         image_url: `http://192.168.0.100:3333/uploads/${point.image}`,
@@ -37,14 +37,14 @@ export default class PointsController {
     const pointsRepository = getRepository(Point);
 
     const point = await pointsRepository.findOne(id, {
-      relations: ['pointItems', 'pointItems.item'],
+      relations: ["pointItems", "pointItems.item"],
     });
 
     if (!point) {
-      return response.status(400).json({ message: 'Point not foind' });
+      return response.status(400).json({ message: "Point not foind" });
     }
 
-    const items = point.pointItems.map(pointItem => {
+    const items = point.pointItems.map((pointItem) => {
       return {
         title: pointItem.item.title,
       };
@@ -69,14 +69,13 @@ export default class PointsController {
       longitude,
       city,
       uf,
-      image,
       items,
     } = request.body;
 
     const pointsRepository = getRepository(Point);
 
     const pointItems = items
-      .split(',')
+      .split(",")
       .map((item: string) => Number(item.trim()))
       .map((item: number) => {
         return {
@@ -98,6 +97,6 @@ export default class PointsController {
 
     await pointsRepository.save(point);
 
-    return response.json(point);
+    return response.status(201).json(point);
   }
 }
