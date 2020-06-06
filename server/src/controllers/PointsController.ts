@@ -21,7 +21,14 @@ export default class PointsController {
       .andWhere('pointItems.item_id IN (:...items)', { items: parsedItems })
       .getMany();
 
-    return response.json(points);
+    const serializedPoints = points.map((point) => {
+      return {
+        ...point,
+        image_url: `http://192.168.0.100:3333/uploads/${point.image}`,
+      };
+    });
+
+    return response.json(serializedPoints);
   }
 
   public async show(request: Request, response: Response) {
@@ -45,7 +52,12 @@ export default class PointsController {
 
     delete point.pointItems;
 
-    return response.json({ point, items });
+    const serializedPoint = {
+      ...point,
+      image_url: `http://192.168.0.100:3333/uploads/${point.image}`,
+    };
+
+    return response.json({ point: serializedPoint, items });
   }
 
   public async create(request: Request, response: Response) {
@@ -57,27 +69,30 @@ export default class PointsController {
       longitude,
       city,
       uf,
-      image = 'https://images.unsplash.com/photo-1565061828011-282424b9ab40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+      image,
       items,
     } = request.body;
 
     const pointsRepository = getRepository(Point);
 
-    const pointItems = items.map((item: number) => {
-      return {
-        item_id: item,
-      };
-    });
+    const pointItems = items
+      .split(',')
+      .map((item: string) => Number(item.trim()))
+      .map((item: number) => {
+        return {
+          item_id: item,
+        };
+      });
 
     const point = pointsRepository.create({
       name,
       email,
       whatsapp,
-      latitude,
-      longitude,
+      latitude: Number(latitude),
+      longitude: Number(longitude),
       city,
       uf,
-      image,
+      image: request.file.filename,
       pointItems,
     });
 
