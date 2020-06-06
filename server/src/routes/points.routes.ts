@@ -5,7 +5,6 @@ import multer from 'multer';
 import multerConfig from '../config/multer';
 
 import PointsController from '../controllers/PointsController';
-import { JoinAttribute } from 'typeorm/query-builder/JoinAttribute';
 
 const pointsRouter = Router();
 const pointsController = new PointsController();
@@ -13,7 +12,17 @@ const pointsController = new PointsController();
 const upload = multer(multerConfig);
 
 pointsRouter.get('/', pointsController.index);
-pointsRouter.get('/:id', pointsController.show);
+
+pointsRouter.get(
+  '/:id',
+  celebrate({
+    params: Joi.object().keys({
+      id: Joi.number().required(),
+    }),
+  }),
+  pointsController.show
+);
+
 pointsRouter.post(
   '/',
   upload.single('image'),

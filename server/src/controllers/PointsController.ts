@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getRepository, In } from 'typeorm';
+import { getRepository } from 'typeorm';
 
 import Point from '../entities/Point';
 
@@ -9,7 +9,7 @@ export default class PointsController {
 
     const parsedItems = String(items)
       .split(',')
-      .map((item) => Number(item.trim()));
+      .map(item => Number(item.trim()));
 
     const pointsRepository = getRepository(Point);
 
@@ -21,7 +21,7 @@ export default class PointsController {
       .andWhere('pointItems.item_id IN (:...items)', { items: parsedItems })
       .getMany();
 
-    const serializedPoints = points.map((point) => {
+    const serializedPoints = points.map(point => {
       return {
         ...point,
         image_url: `http://192.168.0.100:3333/uploads/${point.image}`,
@@ -44,7 +44,7 @@ export default class PointsController {
       return response.status(400).json({ message: 'Point not foind' });
     }
 
-    const items = point.pointItems.map((pointItem) => {
+    const items = point.pointItems.map(pointItem => {
       return {
         title: pointItem.item.title,
       };
