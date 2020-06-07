@@ -81,7 +81,7 @@ describe('App', () => {
     expect(response.body).toHaveProperty('items');
   });
 
-  it('should not be able to find a point by id', async () => {
+  it('should not be able to find a point by id when id does not exists', async () => {
     const response = await request(app).get(`/points/99999`);
 
     expect(response.status).toBe(400);
