@@ -13,11 +13,12 @@ import api from '../../services/api';
 
 import logo from '../../assets/logo.svg';
 
-import './styles.css';
-import ibge from '../../services/ibge';
 import { LeafletMouseEvent } from 'leaflet';
 import Dropzone from '../../components/Dropzone';
 import Modal from '../../components/Modal';
+import ibge from '../../services/ibge';
+
+import { Container, ModalTitle } from './styles';
 
 interface Item {
   id: number;
@@ -189,7 +190,7 @@ const CreatePoint = () => {
 
   return (
     <>
-      <div id="page-create-point">
+      <Container>
         <header>
           <img src={logo} alt="Ecoleta" />
 
@@ -318,14 +319,12 @@ const CreatePoint = () => {
 
           <button type="submit">Cadastrar ponto de coleta</button>
         </form>
-      </div>
+      </Container>
 
       {showMessage && (
         <Modal>
           <FiCheckCircle color="#34cb79" size={60} />
-          <Link to="/" className="modal-title">
-            Cadastro concluido!
-          </Link>
+          <ModalTitle to="/">Cadastro concluido!</ModalTitle>
         </Modal>
       )}
     </>

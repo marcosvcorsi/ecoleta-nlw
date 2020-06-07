@@ -5,12 +5,14 @@ import { FiLogIn } from 'react-icons/fi';
 
 import logo from '../../assets/logo.svg';
 
-import './styles.css';
+// import './styles.css';
+
+import { Container, Content } from './styles';
 
 const Home = () => {
   return (
-    <div id="page-home">
-      <div className="content">
+    <Container>
+      <Content>
         <header>
           <img src={logo} alt="Ecoleta" />
         </header>
@@ -28,8 +30,8 @@ const Home = () => {
             <strong>Cadastre um ponto de coleta</strong>
           </Link>
         </main>
-      </div>
-    </div>
+      </Content>
+    </Container>
   );
 };
 
