@@ -12,7 +12,7 @@
 
 ## 💻 Project
 
-The Ecolesa is a project built during the next level week event, to help people to connect with companies that provides
+The Ecoleta is a project built during the next level week event, to help people to connect with companies that provides
 a collect system.
 
 ---
