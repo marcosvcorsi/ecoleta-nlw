@@ -77,7 +77,7 @@ const CreatePoint = () => {
 
   useEffect(() => {
     ibge.get<IBGEUfResponse[]>('/v1/localidades/estados').then((response) => {
-      const ufInitials = response.data.map((uf) => uf.sigla);
+      const ufInitials = response.data.map((uf) => uf.sigla).sort();
 
       setUfs(ufInitials);
     });
