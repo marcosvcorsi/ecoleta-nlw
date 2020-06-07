@@ -1,7 +1,7 @@
 #page-home {
   height: 100vh;
 
-  background: url('../../assets/home-background.svg') no-repeat 700px bottom;
+  background: url("../../assets/home-background.svg") no-repeat 700px bottom;
 }
 
 #page-home .content {
@@ -31,7 +31,7 @@
 
 #page-home .content main h1 {
   font-size: 54px;
-  color: var(--title-color);
+  color: #fff;
 }
 
 #page-home .content main p {

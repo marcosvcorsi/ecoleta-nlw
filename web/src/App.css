@@ -11,9 +11,13 @@
 }
 
 body {
-  background: #f0f0f5;
+  background: #444;
   -webkit-font-smoothing: antialiased;
   color: var(--text-color);
+}
+
+.modal-open {
+  overflow: hidden;
 }
 
 body,
