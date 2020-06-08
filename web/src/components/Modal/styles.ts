@@ -14,4 +14,5 @@ export const Container = styled(animated.div)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 9999;
 `;
